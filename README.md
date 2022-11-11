@@ -7,7 +7,7 @@
 3. [구현 내용](#-구현-내용)
 4. [타임라인](#-타임라인)
 5. [실행 화면](#-실행-화면)
-6. [트러블 슈팅 & 어려웠던 점](#-트러블-슈팅-&-어려웠던-점)
+6. [트러블 슈팅 & 어려웠던 점](#-트러블-슈팅--어려웠던-점)
 7. [참고 링크](#-참고-링크)
 
 ## 🌱 소개
@@ -67,14 +67,22 @@
 #### Decimal+Extension -> doubleValue 연산프로퍼티
 - `Decimal` 타입의 값을 `NSDecimalNumber`클래스를 이용해서 `Double`값을 리턴해주는 연산 프로퍼티
 #### 비동기처리를 위한 DispatchGroup, DispatchSemaphore, DispatchQueue
-- `private let group: DispatchGroup`
-    - 예금과 대출을 DispatchGroup으로 묶어줌으로써 `wait()`함수를 통하여 모든 작업이 끝나고 다음 코드를 실행할 수 있도록 그룹처리하기 위해 사용했습니다.
-- `private let semaphore: DispatchSemaphore`
-    - 예금의 경우 2명의 은행원이 처리해야한다는 로직을 사용하기 위해 예금 작업을 보내는 글로벌 큐에서 쓰레드의 제한을 주기위해서 `DispatchSemaphore(value: 2)`의 값으로 선언하여 사용했습니다.
-- `private let loanQueue: DispatchQueue`
-    - 대출 업무의 경우 한번에 한개의 업무만 진행해야해서 직렬 큐를 통해 처리했습니다.
-- `private let depositQueue: DispatchQueue`
-    - 예금 업무를 처리할 때 2개의 업무를 처리할 수 있도록 `attribute` 값을 `.concurrent`로 선언하였습니다.
+```swift
+private let group: DispatchGroup
+```
+- 예금과 대출을 DispatchGroup으로 묶어줌으로써 `wait()`함수를 통하여 모든 작업이 끝나고 다음 코드를 실행할 수 있도록 그룹처리하기 위해 사용했습니다.
+```swift
+private let semaphore: DispatchSemaphore
+```
+- 예금의 경우 2명의 은행원이 처리해야한다는 로직을 사용하기 위해 예금 작업을 보내는 글로벌 큐에서 쓰레드의 제한을 주기위해서 `DispatchSemaphore(value: 2)`의 값으로 선언하여 사용했습니다.
+```swift
+private let loanQueue: DispatchQueue
+```
+- 대출 업무의 경우 한번에 한개의 업무만 진행해야해서 직렬 큐를 통해 처리했습니다.
+```swift
+private let depositQueue: DispatchQueue
+```
+- 예금 업무를 처리할 때 2개의 업무를 처리할 수 있도록 `attribute` 값을 `.concurrent`로 선언하였습니다.
 
 
 ## 📱 실행 화면
